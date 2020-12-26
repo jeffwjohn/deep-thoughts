@@ -25,7 +25,7 @@ const resolvers = {
       return Thought.find(params).sort({ createdAt: -1 });
     },
     // Now when we query thoughts, we will perform a .find() method on the Thought model. We're also returning the thought data in descending order, as can be seen in the .sort() method that we chained onto it. We don't have to worry about error handling here because Apollo can infer if something goes wrong and will respond for us.
-    // place this inside of the `Query` nested object right after `thoughts`
+   
     thought: async (parent, { _id }) => {
       return Thought.findOne({ _id });
     },

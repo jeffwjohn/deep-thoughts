@@ -18,8 +18,19 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 
 const client = new ApolloClient({
-  uri: "/graphql",
+  request: operation => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+        // With this request configuration, we use the .setContext() method to set the HTTP request headers of every request to include the token, whether the request needs it or not. This is fine, because if the request doesn't need the token, our server-side resolver function won't check for it. Now that this is in place, we won't have to worry about doing this manually with every single request.
+      }
+    });
+  },
+  uri: '/graphql'
 });
+
 
 function App() {
   return (
